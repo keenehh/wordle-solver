@@ -146,7 +146,7 @@ size_t filter_green(char letter, int position, char **vocabulary, size_t num_wor
 	return filtered;
 }
 
-void free_vocab(char **vocabulary, size_t num) {
+void free_vocabulary(char **vocabulary, size_t num) {
 	for (size_t i = 0; i < num_words; i++) {
 		free(vocabulary[i]);
 	}
