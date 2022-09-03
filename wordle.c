@@ -3,7 +3,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include "solver.h"
 
 int main(int argc, char **argv) {
@@ -17,7 +16,7 @@ int main(int argc, char **argv) {
 	bool success = false;
 	size_t filtered;
 
-	vocabulary = load_vocabulary("vocabulary.txt", &num);
+	vocabulary = load_vocabulary("answers.txt", &num);
 
 	if (argc == 2) {
 		answer = argv[1];
@@ -31,7 +30,7 @@ int main(int argc, char **argv) {
 			break;
 		}
 		num_guesses += 1;
-		printf("Guess #%d: %s\n", num_guesses, guess);
+		printf("Guess #%d: %s\n\n", num_guesses, guess);
 
 		if (answer != NULL) {
 			success = score_guess(answer, guess, result);

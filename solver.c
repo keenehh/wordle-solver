@@ -111,7 +111,7 @@ size_t filter_gray(char letter, char **vocabulary, size_t num) {		//this will fi
   	return filtered;
 }
 
-size_t filter_yellow(char letter, char **vocabulary, size_t num) { //this will filter out all of the words that contain the yellow letter in the certain spot
+size_t filter_yellow(char letter, int position, char **vocabulary, size_t num) { //this will filter out all of the words that contain the yellow letter in the certain spot
 	size_t filtered = 0;
 	for (size_t i = 0; i < num; i++) {
 		char *p;
@@ -146,8 +146,31 @@ size_t filter_green(char letter, int position, char **vocabulary, size_t num_wor
 	return filtered;
 }
 
+
+char **load_vocabulary(char *filename, size_t *num) {
+  char **arr;
+  arr = calloc(500, sizeof(char **));
+  // TODO(you): finish this function
+  char buf[BUFSIZE];
+  FILE *infile = fopen(filename, "r");
+  size_t counter = 0;
+  int tracker = 1000;
+  while ((fgets(buf, BUFSIZE, infile) != NULL)) {
+    arr[counter] = strndup(buf, 5);
+    counter += 1;
+    if (counter % 500 == 0) {
+      arr = realloc(arr, tracker * sizeof(char **));
+      tracker += 500;
+    }
+  }
+  fclose(infile);
+  *num = counter;
+  return arr;
+}
+
+
 void free_vocabulary(char **vocabulary, size_t num) {
-	for (size_t i = 0; i < num_words; i++) {
+	for (size_t i = 0; i < num; i++) {
 		free(vocabulary[i]);
 	}
 	free(vocabulary);
