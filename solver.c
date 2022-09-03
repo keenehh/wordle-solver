@@ -148,24 +148,23 @@ size_t filter_green(char letter, int position, char **vocabulary, size_t num_wor
 
 
 char **load_vocabulary(char *filename, size_t *num) {
-  char **arr;
-  arr = calloc(500, sizeof(char **));
-  // TODO(you): finish this function
-  char buf[BUFSIZE];
-  FILE *infile = fopen(filename, "r");
-  size_t counter = 0;
-  int tracker = 1000;
-  while ((fgets(buf, BUFSIZE, infile) != NULL)) {
-    arr[counter] = strndup(buf, 5);
-    counter += 1;
-    if (counter % 500 == 0) {
-      arr = realloc(arr, tracker * sizeof(char **));
-      tracker += 500;
-    }
-  }
-  fclose(infile);
-  *num = counter;
-  return arr;
+  	char **arr;
+  	arr = calloc(500, sizeof(char **));
+  	char buf[BUFSIZE];
+  	FILE *infile = fopen(filename, "r");
+  	size_t counter = 0;
+  	int tracker = 1000;
+  	while ((fgets(buf, BUFSIZE, infile) != NULL)) {
+    		arr[counter] = strndup(buf, 5);
+    		counter += 1;
+    		if (counter % 500 == 0) {
+      			arr = realloc(arr, tracker * sizeof(char **));
+      			tracker += 500;
+   		}
+  	}
+  	fclose(infile);
+  	*num = counter;
+  	return arr;
 }
 
 
