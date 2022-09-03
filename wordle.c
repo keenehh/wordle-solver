@@ -15,9 +15,8 @@ int main(int argc, char **argv) {
 	char result[10] = {0};
 	bool success = false;
 	size_t filtered;
-
 	vocabulary = load_vocabulary("answers.txt", &num);
-
+	size_t words_left = num;
 	if (argc == 2) {
 		answer = argv[1];
 	}
@@ -30,7 +29,7 @@ int main(int argc, char **argv) {
 			break;
 		}
 		num_guesses += 1;
-		printf("Guess #%d: %s\n\n", num_guesses, guess);
+		printf("Guess #%d: %s\n", num_guesses, guess);
 
 		if (answer != NULL) {
 			success = score_guess(answer, guess, result);
@@ -39,7 +38,7 @@ int main(int argc, char **argv) {
 			bool success2 = false;
 		
 			while (!success2) {
-				printf("Please enter the resut as 5 characters (g,y,x): ");
+				printf("Please enter the result as 5 characters (g,y,x): ");
 				fgets(result, 10, stdin);
 				result[5] = '\0';
 				success2 = true;
@@ -67,20 +66,24 @@ int main(int argc, char **argv) {
 						printf("Filtering with gray letter: %c\n", guess[i]);
 						filtered = filter_gray(guess[i], vocabulary, num);
 						printf("Removed %lu words.\n", filtered);
+						words_left = words_left - filtered;
 					}
 				}
 				else if (result[i] == 'y') {
 					printf("Filtering with yellow letter: %c\n", guess[i]);
 					filtered = filter_yellow(guess[i], i, vocabulary, num);
 					printf("Removed %lu words.\n", filtered);
+					words_left = words_left - filtered;
 				}
 				else if (result[i] == 'g') {
 					printf("Filtering with green letter: %c\n", guess[i]);
 					filtered = filter_green(guess[i], i, vocabulary, num);
 					printf("Removed %lu words.\n", filtered);
+					words_left = words_left - filtered;
 				}
 			}
 		}
+		printf("Possible answers left: %lu\n", words_left);
 	}
 	while (!success); 
 		if (success) {

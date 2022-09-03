@@ -155,7 +155,7 @@ char **load_vocabulary(char *filename, size_t *num) {
   	int tracker = 1000;
   	while ((fgets(buf, BUFSIZE, infile) != NULL)) {
     		arr[counter] = strndup(buf, 5);
-		arr[counter] = '\0';
+		arr[counter][5] = '\0';
     		counter += 1;
     		if (counter % 500 == 0) {
       			arr = realloc(arr, tracker * sizeof(char **));
