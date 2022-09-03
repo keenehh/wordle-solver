@@ -91,7 +91,7 @@ int main(int argc, char **argv) {
 			printf("No more words left.\n");
 		}
 		free(guess);
-		free_vocab(vocabulary, num);
+		free_vocabulary(vocabulary, num);
 		
 		return 0;
 	}
