@@ -146,7 +146,6 @@ size_t filter_green(char letter, int position, char **vocabulary, size_t num_wor
 	return filtered;
 }
 
-
 char **load_vocabulary(char *filename, size_t *num) {
   	char **arr;
   	arr = calloc(500, sizeof(char **));
@@ -156,6 +155,7 @@ char **load_vocabulary(char *filename, size_t *num) {
   	int tracker = 1000;
   	while ((fgets(buf, BUFSIZE, infile) != NULL)) {
     		arr[counter] = strndup(buf, 5);
+		arr[counter] = '\0';
     		counter += 1;
     		if (counter % 500 == 0) {
       			arr = realloc(arr, tracker * sizeof(char **));
@@ -166,7 +166,6 @@ char **load_vocabulary(char *filename, size_t *num) {
   	*num = counter;
   	return arr;
 }
-
 
 void free_vocabulary(char **vocabulary, size_t num) {
 	for (size_t i = 0; i < num; i++) {
