@@ -19,6 +19,6 @@ size_t filter_green(char letter, int position, char **vocabulary, size_t num);
 
 char **load_vocabulary(char *filename, size_t *num);
 
-void free_vocab(char **vocabulary, size_t num);
+void free_vocabulary(char **vocabulary, size_t num);
 
 
