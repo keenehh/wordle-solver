@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define BUFSIZE 7
+#define BUFSIZE 10
 
 int score_letter(char letter, char **vocabulary, size_t num) { //checks the amount of time a single letter has occured
 	int score = 0;
@@ -132,9 +132,9 @@ size_t filter_yellow(char letter, int position, char **vocabulary, size_t num) {
 	return filtered;
 }
 
-size_t filter_green(char letter, int position, char **vocabulary, size_t num_words) { //this will filter out all of the words that dont contain the green letter in certain spot
+size_t filter_green(char letter, int position, char **vocabulary, size_t num) { //this will filter out all of the words that dont contain the green letter in certain spot
 	size_t filtered = 0;
-	for (size_t i = 0; i < num_words; i++) {
+	for (size_t i = 0; i < num; i++) {
 		if (vocabulary[i] != NULL) {
 			if (vocabulary[i][position] != letter) {
 				free(vocabulary[i]);
@@ -148,19 +148,19 @@ size_t filter_green(char letter, int position, char **vocabulary, size_t num_wor
 
 char **load_vocabulary(char *filename, size_t *num) {
   	char **arr;
-  	arr = calloc(500, sizeof(char **));
+	size_t size = 1;
   	char buf[BUFSIZE];
+	arr = calloc(sizeof(char *), size);
   	FILE *infile = fopen(filename, "r");
   	size_t counter = 0;
-  	int tracker = 1000;
   	while ((fgets(buf, BUFSIZE, infile) != NULL)) {
-    		arr[counter] = strndup(buf, 5);
-		arr[counter][5] = '\0';
-    		counter += 1;
-    		if (counter % 500 == 0) {
-      			arr = realloc(arr, tracker * sizeof(char **));
-      			tracker += 500;
+		counter += 1;
+    		if (counter >= size) {
+			size *= 2;
+      			arr = realloc(arr, sizeof(char *) * size);
    		}
+		arr[counter - 1] = strndup(buf, 5);
+		arr[counter - 1][5] = '\0';
   	}
   	fclose(infile);
   	*num = counter;
