@@ -32,7 +32,7 @@ bool letter_occured(char word, char *array) { //helper for checking if the lette
 int score_word(char *word, int *letter_scores) { //adds the total score of the word from each letter
 	int score = 0;
 	char checked[5] = {0};
-	for (int i = 0; i < 5; i++) {
+	for (size_t i = 0; i < 5; i++) {
 		if (letter_occured(word[i], checked) != true) {
 			checked[i] += word[i];
 			score += letter_scores[word[i] - 'a'];	//letter scores contains the value of each letter
@@ -40,7 +40,6 @@ int score_word(char *word, int *letter_scores) { //adds the total score of the w
 	}
 	return score;
 }
-
 
 bool score_guess(char *answer, char *guess, char *result) { //returns true when the guess matches the answer else false
 	for (int i = 0; i < 5; i++) {	//resets the results
@@ -91,7 +90,7 @@ char *get_score(char **vocabulary, size_t num) { //cite: Professor Alex Rudnick
 			best_score = score;		//change the best score
 		}
 	}
-	return best_guess ? strdup(best_guess) : NULL;
+	return best_guess ? strdup(best_guess) : NULL; 
 }
 
 size_t filter_gray(char letter, char **vocabulary, size_t num) {		//this will filter out all of the words that contain the gray letter
